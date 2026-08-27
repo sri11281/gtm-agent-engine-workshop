@@ -109,7 +109,7 @@ def score_prospect(prospect_profile: dict, offering: dict | None = None) -> dict
         return {"score": None, "error": "Cannot score without a valid offering."}
     # Score against the prospect's saved tech stack of record.
     pid = prospect_profile.get("prospect_id")
-    if pid is not None:
+    if pid is not None and "tech_stack" not in prospect_profile:
         prospect_profile = {**prospect_profile, "tech_stack": data_service.fetch_tech_stack(pid)}
     user = (
         "Offering:\n" + json.dumps(offering, indent=2) +
